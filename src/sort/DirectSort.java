@@ -1,11 +1,11 @@
-package sort.direct_methods;
+package sort;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class DirectSort {
-    public static int[] directInclusion(int[] list){
+public class DirectSort implements Sort{
+    public static int[] insertion(int[] list){
         int j = 0;
         int elementInclusion;
         for(int i = 1; i < list.length; i++){
@@ -20,7 +20,7 @@ public class DirectSort {
         }
         return list;
     }
-    public static int[] directSelection(int[] list){
+    public static int[] selection(int[] list){
         int elementSelection;
         int indexElementSelection;
         for(int i = 0; i < list.length-1; i++){
@@ -38,7 +38,7 @@ public class DirectSort {
         }
         return list;
     }
-    public static int[] directExchange(int[] list){
+    public static int[] bubble(int[] list){
         boolean flagExchange = false;
         for(int i = 0; i < list.length - 1; i++){
             for(int j = list.length -1; j > i; j--){
@@ -53,6 +53,32 @@ public class DirectSort {
                 return list;
             }
         }
+        return list;
+    }
+    public static int[] shaker(int[] list){
+        int left = 1;
+        int right = list.length -1;
+        int k = list.length -1 ;
+        do {
+            for(int j = right; j >= left; j--){
+                if(list[j-1] > list[j]){
+                    int temp = list[j-1];
+                    list[j-1] = list[j];
+                    list[j] = temp;
+                    k = j;
+                }
+            }
+            left = k + 1;
+            for(int j = left; j <= right; j++){
+                if(list[j-1] > list[j]){
+                    int temp = list[j-1];
+                    list[j-1] = list[j];
+                    list[j] = temp;
+                    k = j;
+                }
+            }
+            right = k - 1;
+        } while(left < right);
         return list;
     }
 
@@ -71,7 +97,7 @@ public class DirectSort {
             System.out.print(x + " ");
         }
         System.out.println();
-        array =  directExchange(array);
+        array = DirectSort.shaker(array);
         for (int x: array) {
             System.out.print(x + " ");
         }
